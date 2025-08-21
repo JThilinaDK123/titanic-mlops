@@ -1,14 +1,15 @@
+# tests/test_model.py
+from pathlib import Path
+import joblib
 import pandas as pd
-import seaborn as sns
-from model import train_model, predict_survival
 
-def test_model_training_and_prediction():
-    df = sns.load_dataset("titanic").dropna(subset=["survived"])
-    model, features = train_model(df)
-
-    sample = pd.DataFrame([{
-        "pclass": 3, "sex": "male", "age": 25, "fare": 7.25, "embarked": "S"
+def test_model_predicts():
+    model_path = Path("artifacts/model.joblib")
+    assert model_path.exists(), "model not found, run `python train.py` first"
+    model = joblib.load(model_path)
+    row = pd.DataFrame([{
+        "Pclass": 3, "Sex": "male", "Age": 30,
+        "SibSp": 0, "Parch": 0, "Fare": 7.25, "Embarked": "S"
     }])
-
-    pred = predict_survival(model, sample, features)
-    assert pred in [0, 1]
+    proba = model.predict_proba(row)[0][1]
+    assert 0.0 <= proba <= 1.0
