@@ -96,10 +96,10 @@ az acr update -n <ACR_NAME> --admin-enabled true
 az acr credential show -n <ACR_NAME>
 ```
 
--   **`AZ_SUBSCRIPTION_ID`**: your subscription id ($SUB_ID)
--   **`AZ_RESOURCE_GROUP`**: mlops-rg (or your RG)
--   **`AZ_REGION`**: eastus (or your region)
--   **`ACR_NAME`**: your ACR name
+-   **`AZ_SUBSCRIPTION_ID`**: <your subscription id>
+-   **`AZ_RESOURCE_GROUP`**: <your-resource-group-name>
+-   **`AZ_REGION`**: <region>
+-   **`ACR_NAME`**: <ACR_NAME>
 -   **`ACR_LOGIN_SERVER`**: <ACR_NAME>.azurecr.io
--   **`WEBAPP_NAME`**: your web app name
--   **`IMAGE_NAME`**: titanic-mlops
+-   **`WEBAPP_NAME`**: <web-app-name>
+-   **`IMAGE_NAME`**: <image-name>
