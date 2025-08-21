@@ -1,11 +1,9 @@
-# app.py
 import json
 import logging
 import os
 import time
 from collections import deque
 from pathlib import Path
-
 import joblib
 import numpy as np
 import pandas as pd
@@ -52,7 +50,7 @@ st.caption(
     f"Model: `{Path(MODEL_PATH).name}`"
 )
 
-# Input form
+## Input form
 col1, col2, col3 = st.columns(3)
 with col1:
     pclass = st.selectbox("Passenger Class (Pclass)", [1, 2, 3], index=2)
@@ -77,7 +75,7 @@ with col3:
         "Embarked", ["S", "C", "Q"], index=0
     )
 
-# Prediction
+## Prediction
 if st.button("Predict"):
     start = time.time()
     try:
@@ -97,7 +95,7 @@ if st.button("Predict"):
         pred = int(proba >= 0.5)
         latency = (time.time() - start) * 1000.0
 
-        # Update metrics
+        ## Update metrics
         metrics["latencies_ms"].append(latency)
         metrics["request_count"] += 1
 
@@ -118,7 +116,7 @@ if st.button("Predict"):
         logging.exception("prediction_error")
         st.error(f"Error: {e}")
 
-# Sidebar metrics
+## Sidebar metrics
 st.sidebar.header("Live Metrics")
 if metrics["latencies_ms"]:
     p95 = float(np.percentile(metrics["latencies_ms"], 95))

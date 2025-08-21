@@ -1,4 +1,3 @@
-# train.py
 import json
 from pathlib import Path
 
@@ -17,7 +16,7 @@ DATA_PATH = Path("data/titanic.csv")
 ARTIFACT_DIR = Path("artifacts")
 ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Adjust to your actual column names if different
+## Column names
 FEATURES = [
     "Pclass", "Sex", "Age", "SibSp",
     "Parch", "Fare", "Embarked"
@@ -27,7 +26,7 @@ TARGET = "Survived"
 
 def main():
     df = pd.read_csv(DATA_PATH)
-    df = df.dropna(subset=[TARGET])  # ensure target is present
+    df = df.dropna(subset=[TARGET])
 
     X = df[FEATURES].copy()
     y = df[TARGET].astype(int)
