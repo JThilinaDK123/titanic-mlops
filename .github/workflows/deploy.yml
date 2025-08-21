@@ -23,8 +23,7 @@ jobs:
       - name: Get ACR login server
         id: acr
         run: |
-          ACR_LOGIN_SERVER=$(az acr show -n ${{ secrets.ACR_NAME }} -g ${{ secrets.AZURE_RG }} --query loginServer -o tsv)
-          echo "login_server=$ACR_LOGIN_SERVER" >> $GITHUB_OUTPUT
+          ACR_LOGIN_SERVER=$(az acr show -n ${{ secrets.ACR_NAME }} -g ${{ secrets.AZURE_RG }} --query loginServer -o tsv) echo "login_server=$ACR_LOGIN_SERVER" >> $GITHUB_OUTPUT
 
       # Step 4: Log in to ACR
       - name: Docker login to ACR
