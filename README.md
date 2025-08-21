@@ -100,6 +100,6 @@ az acr credential show -n <ACR_NAME>
 -   **`AZ_RESOURCE_GROUP`**: mlops-rg (or your RG)
 -   **`AZ_REGION`**: eastus (or your region)
 -   **`ACR_NAME`**: your ACR name
--   **`ACR_LOGIN_SERVER`**: youracr12345.azurecr.io
+-   **`ACR_LOGIN_SERVER`**: <ACR_NAME>.azurecr.io
 -   **`WEBAPP_NAME`**: your web app name
 -   **`IMAGE_NAME`**: titanic-mlops
