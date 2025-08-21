@@ -16,7 +16,7 @@ DATA_PATH = Path("data/titanic.csv")
 ARTIFACT_DIR = Path("artifacts")
 ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 
-## Column names
+# Column names
 FEATURES = [
     "Pclass", "Sex", "Age", "SibSp",
     "Parch", "Fare", "Embarked"
