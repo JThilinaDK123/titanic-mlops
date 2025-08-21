@@ -23,7 +23,8 @@ jobs:
       - name: Get ACR login server
         id: acr
         run: |
-          ACR_LOGIN_SERVER=$(az acr show -n ${{ secrets.ACR_NAME }} -g ${{ secrets.AZURE_RG }} --query loginServer -o tsv) echo "login_server=$ACR_LOGIN_SERVER" >> $GITHUB_OUTPUT
+          ACR_LOGIN_SERVER=$(az acr show -n ${{ secrets.ACR_NAME }} -g ${{ secrets.AZURE_RG }} --query loginServer -o tsv)
+          echo "login_server=$ACR_LOGIN_SERVER" >> $GITHUB_OUTPUT
 
       # Step 4: Log in to ACR
       - name: Docker login to ACR
@@ -33,13 +34,15 @@ jobs:
       - name: Build and Push Docker image
         run: |
           IMAGE="${{ steps.acr.outputs.login_server }}/titanic-mlops:latest"
+          echo "Building Docker image: $IMAGE"
           docker build -t "$IMAGE" .
           docker push "$IMAGE"
 
-      # Step 6: Update Azure Web App with new image
+      # Step 6: Deploy to Azure Web App
       - name: Deploy to Azure Web App
         run: |
           IMAGE="${{ steps.acr.outputs.login_server }}/titanic-mlops:latest"
+          echo "Deploying Docker image: $IMAGE to Web App"
           az webapp config container set \
             --name ${{ secrets.WEBAPP_NAME }} \
             --resource-group ${{ secrets.AZURE_RG }} \
