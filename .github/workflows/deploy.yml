@@ -1,0 +1,48 @@
+name: CI-CD
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt pytest
+
+      - name: Run tests
+        run: pytest -q
+
+  deploy:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Docker build & push to ACR
+        run: |
+          ACR_LOGIN_SERVER=$(az acr show -n ${{ secrets.ACR_NAME }} -g ${{ secrets.AZURE_RG }} --query loginServer -o tsv)
+          IMAGE="$ACR_LOGIN_SERVER/titanic-app:${{ github.sha }}"
+          docker build -t $IMAGE .
+          az acr login --name ${{ secrets.ACR_NAME }}
+          docker push $IMAGE
+          az webapp config container set \
+            --name ${{ secrets.WEBAPP_NAME }} \
+            --resource-group ${{ secrets.AZURE_RG }} \
+            --docker-custom-image-name $IMAGE \
+            --docker-registry-server-url "https://$ACR_LOGIN_SERVER"
+          az webapp restart -g ${{ secrets.AZURE_RG }} -n ${{ secrets.WEBAPP_NAME }}
