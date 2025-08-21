@@ -96,7 +96,7 @@ az acr update -n <ACR_NAME> --admin-enabled true
 az acr credential show -n <ACR_NAME>
 ```
 
--   **`AZ_SUBSCRIPTION_ID`**: <your subscription id>
+-   **`AZ_SUBSCRIPTION_ID`**: <your-subscription-id>
 -   **`AZ_RESOURCE_GROUP`**: <your-resource-group-name>
 -   **`AZ_REGION`**: <region>
 -   **`ACR_NAME`**: <ACR_NAME>
