@@ -96,7 +96,7 @@ if st.button("Predict"):
         logging.exception("prediction_error")
         st.error(f"Error: {e}")
 
-# Sidebar metrics
+# Sidebar metricss
 st.sidebar.header("Live Metrics")
 if metrics["latencies_ms"]:
     p95 = float(np.percentile(metrics["latencies_ms"], 95))
