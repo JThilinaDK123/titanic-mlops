@@ -2,6 +2,9 @@
 
 This guide provides the necessary steps to test the application locally using Docker, set up required resources in Azure, and configure GitHub for Continuous Integration/Continuous Deployment (CI/CD).
 
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/6c2487fe-60db-4be9-b5b9-f543f6a3b8a6" />
+
+
 ---
 
 ## 🚀 Test Locally with Docker
